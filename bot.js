@@ -40,13 +40,11 @@ bot.on('message', message => {
 
     // Our bot needs to know if it will execute a command
     // It will listen for messages that inslude the text `is it ___day`
-    var match = msg.search(/(be|is) it (mon|tues|wednes|thurs|fri|satur|sun)day/i);
-    var match2 = msg.search(/when (be it|will it be) (mon|tues|wednes|thurs|fri|satur|sun)day/i);
-    if (match2 >= 0) {
-        var args = msg.substring(match2[1]);
-        channel.send(args);
-        var cmd = args.toLowerCase().replace(/\W/g,"");
-        cmd = cmd[0].toUpperCase() + cmd.substring(1);
+    var match = msg.match(/(be|is) it (?<day>mon|tues|wednes|thurs|fri|satur|sun)day/i);
+    var match2 = msg.match(/when (be it|will it be) (?<day>mon|tues|wednes|thurs|fri|satur|sun)day/i);
+    if (match2) {
+        var msgDay = match2.groups["day"] + "day";
+        var cmd = msgDay[0].toUpperCase() + msgDay.substring(1).toLowerCase();
         var isDay = weekday.indexOf(cmd);
         var numDay = isDay - d.getDay();
         if (numDay < 0) {
@@ -60,10 +58,9 @@ bot.on('message', message => {
             channel.send("It'll be " + cmd + " in " + numDay + " days... :cry:");
         }
     }
-    else if (match >= 0) {
-        var args = msg.substring(match[1]);
-        var cmd = args.toLowerCase().replace(/\W/g,"");
-        cmd = cmd[0].toUpperCase() + cmd.substring(1);
+    else if (match) {
+        var msgDay = match.groups["day"] + "day";
+        var cmd = msgDay[0].toUpperCase() + msgDay.substring(1).toLowerCase();
 
         if (day === cmd) {
             channel.send("Yes! It's " + cmd + " today! :thumbsup:");
