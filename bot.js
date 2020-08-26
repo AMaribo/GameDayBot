@@ -76,7 +76,7 @@ bot.on('message', message => {
         switch(cmd) {
             // !help
             case 'help':
-            channel.send("The two commands are as follows:\n```\nis it ___day\nwhen will it be ___day\n```");
+            channel.send("The two commands are as follows:\n```\nBe/Is it ___day\nwhen be it/will it be ___day\n```");
         }
     }
 });
