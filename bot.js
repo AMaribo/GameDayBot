@@ -40,8 +40,8 @@ bot.on('message', message => {
 
     // Our bot needs to know if it will execute a command
     // It will listen for messages that inslude the text `is it ___day`
-    var match = msg.search(/is it (mon|tues|wednes|thurs|fri|satur|sun)day/i);
-    var match2 = msg.search(/when will it be (mon|tues|wednes|thurs|fri|satur|sun)day/i);
+    var match = msg.search(/(be|is) it (mon|tues|wednes|thurs|fri|satur|sun)day/i);
+    var match2 = msg.search(/when (be it|will it be) (mon|tues|wednes|thurs|fri|satur|sun)day/i);
     if (match >= 0) {
         var args = msg.substring(match+6).split(' ');
         var cmd = args[0].toLowerCase().replace(/\W/g,"");
